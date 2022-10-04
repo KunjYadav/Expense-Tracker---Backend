@@ -9,12 +9,14 @@ const sequelize = require('./util/database')
 
 const User = require('./models/user')
 const Expense = require('./models/expense')
+const Order = require('./models/order')
 
 
 const cors = require('cors')
 
 const authRoutes = require('./routes/auth')
 const expenseRoutes = require('./routes/expense')
+const premiumRoutes = require('./routes/premium')
 
 
 const app = express();
@@ -26,10 +28,13 @@ app.use(cors());
 
 User.hasMany(Expense);
 Expense.belongsTo(User);
+User.hasOne(Order)
+Order.belongsTo(User)
 
 
 app.use('/user', authRoutes);
 app.use(expenseRoutes);
+app.use(premiumRoutes);
 
 
 sequelize
