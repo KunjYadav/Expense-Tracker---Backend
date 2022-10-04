@@ -3,7 +3,6 @@ dotenv.config()
 
 const path = require('path');
 const fs = require('fs');
-const https = require('https');
 
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -33,10 +32,6 @@ const accessLogStream = fs.createWriteStream(
 
 const helmet = require('helmet');
 const morgan = require('morgan');
-const compression = require('compression');
-
-// const privateKey = fs.readFileSync("server.key");
-// const certificate = fs.readFileSync("server.cert");
 
 const app = express();
 
@@ -47,7 +42,7 @@ app.use(cors());
 
 app.use(helmet());
 app.use(morgan('combined', { stream: accessLogStream }));
-app.use(compression());
+
 
 User.hasMany(Expense);
 Expense.belongsTo(User);
