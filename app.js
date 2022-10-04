@@ -60,6 +60,12 @@ app.use(premiumRoutes);
 app.use(forgotPasswordRoutes)
 
 
+app.use((req, res) => {
+    console.log('urlll', req.url);
+    res.sendFile(path.join(__dirname, `public/${req.url}`));
+})
+
+
 sequelize
     // .sync({ force: true })
     .sync()

@@ -14,7 +14,7 @@ exports.forgotPassword = (req, res, next) => {
             else {
                 user.createPassword({ uuid: uuid, isActive: true })
                     .then(() => {
-                        return res.status(201).json({ success: true, message: `Use this link to reset Password : http://localhost:3000/password/resetpassword/${uuid}` })
+                        return res.status(201).json({ success: true, message: `Use this link to reset Password : http://54.176.162.231:3000/password/resetpassword/${uuid}` })
                     })
                     .catch(err => {
                         throw new Error(err)
@@ -52,7 +52,7 @@ exports.resetPassword = (req, res, next) => {
                 <body>
                     <div id="div" style="display:flex; flex-direction:column; margin-top:10rem; align-items:center; justify-content:center;">
                         <h3>Enter Your New Password</h3>
-                        <form id="form" action="http://localhost:3000/password/updatepassword" method="POST">
+                        <form id="form" action="http://54.176.162.231:3000/password/updatepassword" method="POST">
                         <label for="password">Password:</label>
                         <input type="password"  id="password" name="password" required>
                         <br><br>
