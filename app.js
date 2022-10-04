@@ -1,6 +1,9 @@
 const dotenv = require('dotenv')
 dotenv.config()
 
+const path = require('path');
+const fs = require('fs');
+
 const express = require('express')
 const bodyParser = require('body-parser')
 
@@ -14,6 +17,7 @@ const Password = require('./models/password')
 const Download = require('./models/download')
 
 
+
 const cors = require('cors')
 
 const authRoutes = require('./routes/auth')
@@ -21,6 +25,13 @@ const expenseRoutes = require('./routes/expense')
 const premiumRoutes = require('./routes/premium')
 const forgotPasswordRoutes = require('./routes/forgotPassword')
 
+const accessLogStream = fs.createWriteStream(
+    path.join(__dirname, 'access.log'), 
+    { flags: 'a' }
+);
+
+const helmet = require('helmet');
+const morgan = require('morgan');
 
 const app = express();
 
@@ -28,6 +39,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(cors());
+
+app.use(helmet());
+app.use(morgan('combined', { stream: accessLogStream }));
 
 User.hasMany(Expense);
 Expense.belongsTo(User);
