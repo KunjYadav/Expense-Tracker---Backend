@@ -5,6 +5,9 @@
     "main": "app.js",
     "author": "Kunj",
     "license": "ISC",
+    "engines": {
+        "node": "16.14.2"
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "nodemon app.js",

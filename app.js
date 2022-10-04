@@ -3,6 +3,7 @@ dotenv.config()
 
 const path = require('path');
 const fs = require('fs');
+const https = require('https');
 
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -26,12 +27,15 @@ const premiumRoutes = require('./routes/premium')
 const forgotPasswordRoutes = require('./routes/forgotPassword')
 
 const accessLogStream = fs.createWriteStream(
-    path.join(__dirname, 'access.log'), 
+    path.join(__dirname, 'access.log'),
     { flags: 'a' }
 );
 
 const helmet = require('helmet');
 const morgan = require('morgan');
+
+// const privateKey = fs.readFileSync("server.key");
+// const certificate = fs.readFileSync("server.cert");
 
 const app = express();
 
@@ -63,6 +67,9 @@ sequelize
     // .sync({ force: true })
     .sync()
     .then(() => {
+        // https
+        //     .createServer({ key: privateKey, cert: certificate }, app)
+        //     .listen(process.env.PORT || 3000)
         app.listen(process.env.PORT || 3000)
     })
     .catch(err => {
